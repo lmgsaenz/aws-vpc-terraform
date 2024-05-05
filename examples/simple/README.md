@@ -1,3 +1,12 @@
+# Simple VPC
+## Usage
+To run this example you need to execute:
+```bash
+$ terraform init
+$ terraform plan
+$ terraform apply
+````
+This example may create resources which can cost money (AWS NAT GATEWAY, for example). Run `terrafrom destroy` when you don't need these resources.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

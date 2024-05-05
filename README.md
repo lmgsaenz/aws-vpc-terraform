@@ -1,4 +1,19 @@
 # aws-vpc-terraform
+## Usage
+```bash
+module "vpc" {
+  source          = "../.."
+  name            = "vpc"
+  azs             = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  cidr_block      = "10.0.0.0/16"
+  public_subnets  = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
+  private_subnets = ["10.0.40.0/24", "10.0.50.0/24", "10.0.60.0/24"]
+  tags            = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
+```
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 

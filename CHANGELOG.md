@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.1.0...v1.2.0) (2024-05-05)
+
+
+### Features
+
+* Allow to create a NAT Gateway shared by all private subents ([6458e56](https://github.com/lmgsaenz/aws-vpc-terraform/commit/6458e566fd5146e36e3974b4abe2c6ba8221f387))
+
 ## [1.1.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.0.0...v1.1.0) (2024-05-05)
 
 

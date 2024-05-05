@@ -62,7 +62,7 @@ resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.public[*].id
   tags = merge(
-    { "Name" : format("%s-public-nacl", var.name) },
+    { "Name" : "${var.name}-${var.public_subnet_suffix}" },
     var.tags,
     var.public_network_acl_tags
   )
@@ -126,7 +126,7 @@ resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.private[*].id
   tags = merge(
-    { "Name" : format("%s-private-nacl", var.name) },
+    { "Name" : "${var.name}-${var.private_subnet_suffix}" },
     var.tags,
     var.private_network_acl_tags
   )
@@ -160,7 +160,7 @@ resource "aws_internet_gateway" "this" {
   count  = local.create_public_subnets && var.create_igw ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-igw", var.name) },
+    { "Name" : "${var.name}" },
     var.tags,
     var.igw_tags
   )

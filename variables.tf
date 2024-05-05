@@ -172,3 +172,27 @@ variable "igw_tags" {
   type        = map(string)
   default     = {}
 }
+#################################################
+# NAT GATEWAY
+#################################################
+variable "enable_nat_gateway" {
+  description = "Control if you want to create an NAT Gateway for private subnets and the configuration of the routes to connect"
+  type        = bool
+  default     = false
+
+}
+variable "nat_gateway_destinatino_cidr_block" {
+  description = "Used to define a destination CIDR block for the NAT Gateway. If not specified, the default value is 0.0.0.0/0"
+  type        = string
+  default     = "0.0.0.0/0"
+}
+variable "nat_gateway_tags" {
+  description = "Additional tags for the NAT Gateways"
+  type        = map(string)
+  default     = {}
+}
+variable "nat_eip_tags" {
+  description = "Additional tags for the NAT Elastic IP"
+  type        = map(string)
+  default     = {}
+}

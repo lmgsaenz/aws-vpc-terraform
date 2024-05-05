@@ -52,6 +52,16 @@ variable "public_subnets" {
   type        = list(string)
   default     = []
 }
+variable "public_subnet_names" {
+  description = "Explicit subnet names to use in the Name tag on public subnets. If empty, Name tags are generated automatically"
+  type        = list(string)
+  default     = []
+}
+variable "public_subnet_suffix" {
+  description = "Suffix to append to public subnets names"
+  type        = string
+  default     = "public"
+}
 variable "public_subnet_tags" {
   description = "Additional tags for the Public Subnets"
   type        = map(string)
@@ -98,6 +108,16 @@ variable "private_subnets" {
   description = "A list of private subnets inside the vpc"
   type        = list(string)
   default     = []
+}
+variable "private_subnet_names" {
+  description = "Explicit subnet names to use in the Name tag on private subnets. If empty, Name tags are generated automatically"
+  type        = list(string)
+  default     = []
+}
+variable "private_subnet_suffix" {
+  description = "Suffix to append to private subnets names"
+  type        = string
+  default     = "private"
 }
 variable "private_subnet_tags" {
   description = "Additional tags for the Private Subnets"

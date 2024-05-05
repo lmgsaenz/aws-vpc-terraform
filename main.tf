@@ -28,7 +28,11 @@ resource "aws_subnet" "public" {
   cidr_block        = element(var.public_subnets, count.index)
   availability_zone = element(var.azs, count.index)
   tags = merge(
-    { "Name" : format("%s-public-subnet-%s", var.name, regex("[^/-]+$", element(var.azs, count.index))) },
+    { "Name" = try(
+      var.public_subnet_names[count.index],
+      format("${var.name}-${var.public_subnet_suffix}-%s", regex("[^/-]+$", element(var.azs, count.index)))
+      )
+    },
     var.tags,
     var.public_subnet_tags
   )
@@ -37,7 +41,7 @@ resource "aws_route_table" "public" {
   count  = local.create_public_subnets ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-public-rt", var.name) },
+    { "Name" : "${var.name}-${var.public_subnet_suffix}" },
     var.tags,
     var.public_route_table_tags
   )
@@ -58,7 +62,7 @@ resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.public[*].id
   tags = merge(
-    { "Name" : format("%s-public-nacl", var.name) },
+    { "Name" : "${var.name}-${var.public_subnet_suffix}" },
     var.tags,
     var.public_network_acl_tags
   )
@@ -94,7 +98,11 @@ resource "aws_subnet" "private" {
   cidr_block        = element(var.private_subnets, count.index)
   availability_zone = element(var.azs, count.index)
   tags = merge(
-    { "Name" : format("%s-private-subnet-%s", var.name, regex("[^/-]+$", element(var.azs, count.index))) },
+    { "Name" = try(
+      var.private_subnet_names[count.index],
+      format("${var.name}-${var.private_subnet_suffix}-%s", regex("[^/-]+$", element(var.azs, count.index)))
+      )
+    },
     var.tags,
     var.private_subnet_tags
   )
@@ -103,7 +111,7 @@ resource "aws_route_table" "private" {
   count  = local.create_private_subnets ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-private-rt", var.name) },
+    { "Name" : "${var.name}-${var.private_subnet_suffix}" },
     var.tags,
     var.private_route_table_tags
   )
@@ -118,7 +126,7 @@ resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.this.id
   subnet_ids = aws_subnet.private[*].id
   tags = merge(
-    { "Name" : format("%s-private-nacl", var.name) },
+    { "Name" : "${var.name}-${var.private_subnet_suffix}" },
     var.tags,
     var.private_network_acl_tags
   )
@@ -152,7 +160,7 @@ resource "aws_internet_gateway" "this" {
   count  = local.create_public_subnets && var.create_igw ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-igw", var.name) },
+    { "Name" : var.name },
     var.tags,
     var.igw_tags
   )

@@ -19,7 +19,7 @@ This example may create resources which can cost money (AWS NAT GATEWAY, for exa
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.48 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.48.0 |
 
 ## Modules
 

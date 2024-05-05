@@ -26,7 +26,7 @@ module "vpc" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.48 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.48.0 |
 
 ## Modules
 
@@ -68,12 +68,16 @@ No modules.
 | <a name="input_private_network_acl_tags"></a> [private\_network\_acl\_tags](#input\_private\_network\_acl\_tags) | Additional tags for the Private Network ACL | `map(string)` | `{}` | no |
 | <a name="input_private_outbound_network_acl_rule"></a> [private\_outbound\_network\_acl\_rule](#input\_private\_outbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
 | <a name="input_private_route_table_tags"></a> [private\_route\_table\_tags](#input\_private\_route\_table\_tags) | Additional tags for the Private Route Table | `map(string)` | `{}` | no |
+| <a name="input_private_subnet_names"></a> [private\_subnet\_names](#input\_private\_subnet\_names) | Explicit subnet names to use in the Name tag on private subnets. If empty, Name tags are generated automatically | `list(string)` | `[]` | no |
+| <a name="input_private_subnet_suffix"></a> [private\_subnet\_suffix](#input\_private\_subnet\_suffix) | Suffix to append to private subnets names | `string` | `"private"` | no |
 | <a name="input_private_subnet_tags"></a> [private\_subnet\_tags](#input\_private\_subnet\_tags) | Additional tags for the Private Subnets | `map(string)` | `{}` | no |
 | <a name="input_private_subnets"></a> [private\_subnets](#input\_private\_subnets) | A list of private subnets inside the vpc | `list(string)` | `[]` | no |
 | <a name="input_public_inbound_network_acl_rule"></a> [public\_inbound\_network\_acl\_rule](#input\_public\_inbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
 | <a name="input_public_network_acl_tags"></a> [public\_network\_acl\_tags](#input\_public\_network\_acl\_tags) | Additional tags for the Public Network ACL | `map(string)` | `{}` | no |
 | <a name="input_public_outbound_network_acl_rule"></a> [public\_outbound\_network\_acl\_rule](#input\_public\_outbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
 | <a name="input_public_route_table_tags"></a> [public\_route\_table\_tags](#input\_public\_route\_table\_tags) | Additional tags for the Public Route Table | `map(string)` | `{}` | no |
+| <a name="input_public_subnet_names"></a> [public\_subnet\_names](#input\_public\_subnet\_names) | Explicit subnet names to use in the Name tag on public subnets. If empty, Name tags are generated automatically | `list(string)` | `[]` | no |
+| <a name="input_public_subnet_suffix"></a> [public\_subnet\_suffix](#input\_public\_subnet\_suffix) | Suffix to append to public subnets names | `string` | `"public"` | no |
 | <a name="input_public_subnet_tags"></a> [public\_subnet\_tags](#input\_public\_subnet\_tags) | Additional tags for the Public Subnets | `map(string)` | `{}` | no |
 | <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | A list of public subnets inside the vpc | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |

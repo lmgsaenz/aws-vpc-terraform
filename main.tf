@@ -28,7 +28,11 @@ resource "aws_subnet" "public" {
   cidr_block        = element(var.public_subnets, count.index)
   availability_zone = element(var.azs, count.index)
   tags = merge(
-    { "Name" : format("%s-public-subnet-%s", var.name, regex("[^/-]+$", element(var.azs, count.index))) },
+    { "Name" = try(
+      var.public_subnet_names[count.index],
+      format("${var.name}-${var.public_subnet_suffix}-%s", regex("[^/-]+$", element(var.azs, count.index)))
+      )
+    },
     var.tags,
     var.public_subnet_tags
   )

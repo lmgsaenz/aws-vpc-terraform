@@ -106,3 +106,22 @@ output "igw_arn" {
   description = "The arn of the Internet Gateway"
   value       = aws_internet_gateway.this[0].arn
 }
+#################################################
+# NAT Gateway
+#################################################
+output "nat_ids" {
+  description = "List of allocation ID of Elastic IPs created for AWS NAT Gateway"
+  value       = try(aws_eip.nat[0].id, null)
+}
+output "nat_public_ids" {
+  description = "List of public Elastic IPs created for AWS NAT Gateway"
+  value       = try(aws_eip.nat[0].public_ip, null)
+}
+output "natgw_ids" {
+  description = "List of NAT Gateway IDs"
+  value       = try(aws_nat_gateway.this[0].id, null)
+}
+output "natgw_interface_ids" {
+  description = "List of Network Interface IDs assigned to NAT Gateways"
+  value       = try(aws_nat_gateway.this[0].network_interface_id, null)
+}

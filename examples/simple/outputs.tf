@@ -106,3 +106,22 @@ output "igw_arn" {
   description = "The arn of the Internet Gateway"
   value       = module.vpc.igw_arn
 }
+#################################################
+# NAT Gateway
+#################################################
+output "nat_ids" {
+  description = "A list of allocation ID of Elastic IPs created for AWS NAT Gateway"
+  value       = module.vpc.nat_ids
+}
+output "nat_public_ids" {
+  description = "A list of public Elastic IPs created for AWS NAT Gateway"
+  value       = module.vpc.nat_public_ids
+}
+output "natgw_ids" {
+  description = "List of NAT Gateway IDs"
+  value       = module.vpc.natgw_ids
+}
+output "natgw_interface_ids" {
+  description = "List of Network Interface IDs assigned to NAT Gateways"
+  value       = module.vpc.natgw_interface_ids
+}

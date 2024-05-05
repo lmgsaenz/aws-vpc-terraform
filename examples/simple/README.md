@@ -43,6 +43,10 @@ No inputs.
 |------|-------------|
 | <a name="output_igw_arn"></a> [igw\_arn](#output\_igw\_arn) | The arn of the Internet Gateway |
 | <a name="output_igw_id"></a> [igw\_id](#output\_igw\_id) | The id of the Internet Gateway |
+| <a name="output_nat_ids"></a> [nat\_ids](#output\_nat\_ids) | A list of allocation ID of Elastic IPs created for AWS NAT Gateway |
+| <a name="output_nat_public_ids"></a> [nat\_public\_ids](#output\_nat\_public\_ids) | A list of public Elastic IPs created for AWS NAT Gateway |
+| <a name="output_natgw_ids"></a> [natgw\_ids](#output\_natgw\_ids) | List of NAT Gateway IDs |
+| <a name="output_natgw_interface_ids"></a> [natgw\_interface\_ids](#output\_natgw\_interface\_ids) | List of Network Interface IDs assigned to NAT Gateways |
 | <a name="output_private_inbound_network_acl_rule_id"></a> [private\_inbound\_network\_acl\_rule\_id](#output\_private\_inbound\_network\_acl\_rule\_id) | The ID of the Private Inbound Network ACL Rule |
 | <a name="output_private_network_acl_arn"></a> [private\_network\_acl\_arn](#output\_private\_network\_acl\_arn) | The ARN of the Private Network ACL |
 | <a name="output_private_network_acl_id"></a> [private\_network\_acl\_id](#output\_private\_network\_acl\_id) | The ID of the Private Network ACL |

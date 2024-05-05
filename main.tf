@@ -165,3 +165,32 @@ resource "aws_internet_gateway" "this" {
     var.igw_tags
   )
 }
+#################################################
+# NAT Gateway
+#################################################
+resource "aws_eip" "nat" {
+  count  = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
+  domain = "vpc"
+  tags = merge(
+    { "Name" : format("${var.name}-%s", regex("[^/-]+$", element(var.azs, count.index))) },
+    var.tags,
+    var.nat_eip_tags
+  )
+}
+resource "aws_nat_gateway" "this" {
+  count         = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
+  allocation_id = aws_eip.nat[0].id
+  subnet_id     = element(aws_subnet.public[*].id, count.index)
+  tags = merge(
+    { "Name" : format("${var.name}-%s", regex("[^/-]+$", element(var.azs, count.index))) },
+    var.tags,
+    var.nat_gateway_tags
+  )
+  depends_on = [aws_internet_gateway.this]
+}
+resource "aws_route" "private_nat_gateway" {
+  count                  = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
+  route_table_id         = aws_route_table.private[0].id
+  nat_gateway_id         = aws_nat_gateway.this[0].id
+  destination_cidr_block = var.nat_gateway_destinatino_cidr_block
+}

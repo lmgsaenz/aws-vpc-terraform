@@ -36,13 +36,16 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_eip.nat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_internet_gateway.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway) | resource |
+| [aws_nat_gateway.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway) | resource |
 | [aws_network_acl.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) | resource |
 | [aws_network_acl.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl) | resource |
 | [aws_network_acl_rule.private_inbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
 | [aws_network_acl_rule.private_outbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
 | [aws_network_acl_rule.public_inbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
 | [aws_network_acl_rule.public_outbound](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/network_acl_rule) | resource |
+| [aws_route.private_nat_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route.public_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route) | resource |
 | [aws_route_table.private](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
 | [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table) | resource |
@@ -61,9 +64,13 @@ No modules.
 | <a name="input_create_igw"></a> [create\_igw](#input\_create\_igw) | Control if you want to create an Internet Gateway for public subnets and the configuration of the routes to connect | `bool` | `true` | no |
 | <a name="input_enable_dns_hostnames"></a> [enable\_dns\_hostnames](#input\_enable\_dns\_hostnames) | A boolean flag to enable/disable DNS hostnames in the VPC | `bool` | `false` | no |
 | <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | A boolean flag to enable/disable DNS support in the VPC. | `bool` | `true` | no |
+| <a name="input_enable_nat_gateway"></a> [enable\_nat\_gateway](#input\_enable\_nat\_gateway) | Control if you want to create an NAT Gateway for private subnets and the configuration of the routes to connect | `bool` | `false` | no |
 | <a name="input_igw_tags"></a> [igw\_tags](#input\_igw\_tags) | Additional tags for the Internet Gateway | `map(string)` | `{}` | no |
 | <a name="input_instance_tenancy"></a> [instance\_tenancy](#input\_instance\_tenancy) | tenancy option for instances launched into the VPC | `string` | `"default"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name to be used on all resources as identifier | `string` | `""` | no |
+| <a name="input_nat_eip_tags"></a> [nat\_eip\_tags](#input\_nat\_eip\_tags) | Additional tags for the NAT Elastic IP | `map(string)` | `{}` | no |
+| <a name="input_nat_gateway_destinatino_cidr_block"></a> [nat\_gateway\_destinatino\_cidr\_block](#input\_nat\_gateway\_destinatino\_cidr\_block) | Used to define a destination CIDR block for the NAT Gateway. If not specified, the default value is 0.0.0.0/0 | `string` | `"0.0.0.0/0"` | no |
+| <a name="input_nat_gateway_tags"></a> [nat\_gateway\_tags](#input\_nat\_gateway\_tags) | Additional tags for the NAT Gateways | `map(string)` | `{}` | no |
 | <a name="input_private_inbound_network_acl_rule"></a> [private\_inbound\_network\_acl\_rule](#input\_private\_inbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
 | <a name="input_private_network_acl_tags"></a> [private\_network\_acl\_tags](#input\_private\_network\_acl\_tags) | Additional tags for the Private Network ACL | `map(string)` | `{}` | no |
 | <a name="input_private_outbound_network_acl_rule"></a> [private\_outbound\_network\_acl\_rule](#input\_private\_outbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
@@ -89,6 +96,10 @@ No modules.
 |------|-------------|
 | <a name="output_igw_arn"></a> [igw\_arn](#output\_igw\_arn) | The arn of the Internet Gateway |
 | <a name="output_igw_id"></a> [igw\_id](#output\_igw\_id) | The id of the Internet Gateway |
+| <a name="output_nat_ids"></a> [nat\_ids](#output\_nat\_ids) | List of allocation ID of Elastic IPs created for AWS NAT Gateway |
+| <a name="output_nat_public_ids"></a> [nat\_public\_ids](#output\_nat\_public\_ids) | List of public Elastic IPs created for AWS NAT Gateway |
+| <a name="output_natgw_ids"></a> [natgw\_ids](#output\_natgw\_ids) | List of NAT Gateway IDs |
+| <a name="output_natgw_interface_ids"></a> [natgw\_interface\_ids](#output\_natgw\_interface\_ids) | List of Network Interface IDs assigned to NAT Gateways |
 | <a name="output_private_inbound_network_acl_rule_id"></a> [private\_inbound\_network\_acl\_rule\_id](#output\_private\_inbound\_network\_acl\_rule\_id) | The ID of the Private Inbound Network ACL Rule |
 | <a name="output_private_network_acl_arn"></a> [private\_network\_acl\_arn](#output\_private\_network\_acl\_arn) | The ARN of the Private Network ACL |
 | <a name="output_private_network_acl_id"></a> [private\_network\_acl\_id](#output\_private\_network\_acl\_id) | The ID of the Private Network ACL |

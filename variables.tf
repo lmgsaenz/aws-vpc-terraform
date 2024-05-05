@@ -109,6 +109,16 @@ variable "private_subnets" {
   type        = list(string)
   default     = []
 }
+variable "private_subnet_names" {
+  description = "Explicit subnet names to use in the Name tag on private subnets. If empty, Name tags are generated automatically"
+  type        = list(string)
+  default     = []
+}
+variable "private_subnet_suffix" {
+  description = "Suffix to append to private subnets names"
+  type        = string
+  default     = "private"
+}
 variable "private_subnet_tags" {
   description = "Additional tags for the Private Subnets"
   type        = map(string)

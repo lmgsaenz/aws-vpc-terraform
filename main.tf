@@ -41,7 +41,7 @@ resource "aws_route_table" "public" {
   count  = local.create_public_subnets ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-public-rt", var.name) },
+    { "Name" : "${var.name}-${var.public_subnet_suffix}" },
     var.tags,
     var.public_route_table_tags
   )
@@ -111,7 +111,7 @@ resource "aws_route_table" "private" {
   count  = local.create_private_subnets ? 1 : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : format("%s-private-rt", var.name) },
+    { "Name" : "${var.name}-${var.private_subnet_suffix}" },
     var.tags,
     var.private_route_table_tags
   )

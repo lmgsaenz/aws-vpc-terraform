@@ -4,6 +4,7 @@ locals {
 
   create_public_subnets  = local.len_public_subnets > 0
   create_private_subnets = local.len_private_subnets > 0
+  nat_gateway_count      = var.single_nat_gateway ? 1 : var.nat_gateway_per_az ? length(var.azs) : local.len_public_subnets
 }
 #################################################
 # VPC
@@ -23,7 +24,7 @@ resource "aws_vpc" "this" {
 # Public Subnets
 #################################################
 resource "aws_subnet" "public" {
-  count             = local.create_public_subnets ? local.len_public_subnets : 0
+  count             = local.create_public_subnets && (!var.nat_gateway_per_az || local.len_public_subnets >= length(var.azs)) ? local.len_public_subnets : 0
   vpc_id            = aws_vpc.this.id
   cidr_block        = element(var.public_subnets, count.index)
   availability_zone = element(var.azs, count.index)
@@ -108,17 +109,20 @@ resource "aws_subnet" "private" {
   )
 }
 resource "aws_route_table" "private" {
-  count  = local.create_private_subnets ? 1 : 0
+  # There are as many route table as the number of AZs
+  count  = local.create_private_subnets ? length(var.azs) : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : "${var.name}-${var.private_subnet_suffix}" },
+    {
+      "Name" : format("${var.name}-${var.private_subnet_suffix}-%s", regex("[^/-]+$", element(var.azs, count.index)))
+    },
     var.tags,
     var.private_route_table_tags
   )
 }
 resource "aws_route_table_association" "private" {
   count          = local.create_private_subnets ? local.len_private_subnets : 0
-  route_table_id = aws_route_table.private[0].id
+  route_table_id = element(aws_route_table.private[*].id, count.index)
   subnet_id      = element(aws_subnet.private[*].id, count.index)
 }
 resource "aws_network_acl" "private" {
@@ -169,17 +173,18 @@ resource "aws_internet_gateway" "this" {
 # NAT Gateway
 #################################################
 resource "aws_eip" "nat" {
-  count  = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
+  count  = var.enable_nat_gateway ? local.nat_gateway_count : 0
   domain = "vpc"
   tags = merge(
     { "Name" : format("${var.name}-%s", regex("[^/-]+$", element(var.azs, count.index))) },
     var.tags,
     var.nat_eip_tags
   )
+  depends_on = [aws_internet_gateway.this]
 }
 resource "aws_nat_gateway" "this" {
-  count         = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
-  allocation_id = aws_eip.nat[0].id
+  count         = var.enable_nat_gateway ? local.nat_gateway_count : 0
+  allocation_id = element(aws_eip.nat[*].id, count.index)
   subnet_id     = element(aws_subnet.public[*].id, count.index)
   tags = merge(
     { "Name" : format("${var.name}-%s", regex("[^/-]+$", element(var.azs, count.index))) },
@@ -189,8 +194,8 @@ resource "aws_nat_gateway" "this" {
   depends_on = [aws_internet_gateway.this]
 }
 resource "aws_route" "private_nat_gateway" {
-  count                  = local.create_private_subnets && var.enable_nat_gateway ? 1 : 0
-  route_table_id         = aws_route_table.private[0].id
-  nat_gateway_id         = aws_nat_gateway.this[0].id
+  count                  = local.create_private_subnets && var.enable_nat_gateway ? local.nat_gateway_count : 0
+  route_table_id         = element(aws_route_table.private[*].id, count.index)
+  nat_gateway_id         = element(aws_nat_gateway.this[*].id, count.index)
   destination_cidr_block = var.nat_gateway_destinatino_cidr_block
 }

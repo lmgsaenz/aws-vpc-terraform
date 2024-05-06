@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.2.0...v1.3.0) (2024-05-06)
+
+
+### Features
+
+* Allow to create a NAT Gateway per AZs ([e1b8bf0](https://github.com/lmgsaenz/aws-vpc-terraform/commit/e1b8bf0186e1796f20fb73c225a71a48c32db9de))
+
 ## [1.2.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.1.0...v1.2.0) (2024-05-05)
 
 

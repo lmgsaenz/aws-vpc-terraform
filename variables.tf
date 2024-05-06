@@ -181,6 +181,16 @@ variable "enable_nat_gateway" {
   default     = false
 
 }
+variable "single_nat_gateway" {
+  description = "Should be true if you want create a single shared NAT Gateway across all of your private subnets"
+  type        = bool
+  default     = false
+}
+variable "nat_gateway_per_az" {
+  description = "Should be true if you want to create a nat gateway per AZs. Requires `var.azs`variable and the number of `public subnet` need to be greater than or equal to the number of AZs"
+  type        = bool
+  default     = false
+}
 variable "nat_gateway_destinatino_cidr_block" {
   description = "Used to define a destination CIDR block for the NAT Gateway. If not specified, the default value is 0.0.0.0/0"
   type        = string

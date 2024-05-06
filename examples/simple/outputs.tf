@@ -33,7 +33,7 @@ output "public_route_table_arn" {
   value       = module.vpc.public_route_table_arn
 }
 output "public_route_table_association_id" {
-  description = "The ID of the Public Route Table Association"
+  description = "List of ID of the Public Route Table Association"
   value       = module.vpc.public_route_table_association_id
 }
 output "public_internet_gateway_route_id" {
@@ -68,19 +68,23 @@ output "private_subnet_arns" {
   value       = module.vpc.private_subnet_arns
 }
 output "private_route_table_id" {
-  description = "The ID of the Private Route Table"
+  description = "List of ID of the Private Route Table"
   value       = module.vpc.private_route_table_id
 }
 output "private_route_table_arn" {
-  description = "The ARN of the Private Route Table"
+  description = "List of ARN of the Private Route Table"
   value       = module.vpc.private_route_table_arn
 }
+output "private_nat_gateway_route_ids" {
+  description = "List of IDs of the Private NAT Gateway route"
+  value       = module.vpc.private_nat_gateway_route_ids
+}
 output "private_route_table_association_id" {
-  description = "The ID of the Private Route Table Association"
+  description = "List of ID of the Private Route Table Association"
   value       = module.vpc.private_route_table_association_id
 }
 output "private_network_acl_id" {
-  description = "The ID of the Private Network ACL"
+  description = "List of ID of the Private Network ACL"
   value       = module.vpc.private_network_acl_id
 }
 output "private_network_acl_arn" {
@@ -113,9 +117,9 @@ output "nat_ids" {
   description = "A list of allocation ID of Elastic IPs created for AWS NAT Gateway"
   value       = module.vpc.nat_ids
 }
-output "nat_public_ids" {
+output "nat_public_ips" {
   description = "A list of public Elastic IPs created for AWS NAT Gateway"
-  value       = module.vpc.nat_public_ids
+  value       = module.vpc.nat_public_ips
 }
 output "natgw_ids" {
   description = "List of NAT Gateway IDs"

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.3.0...v1.4.0) (2024-05-10)
+
+
+### Features
+
+* Allow the option to create public route tables per azs ([58b2056](https://github.com/lmgsaenz/aws-vpc-terraform/commit/58b20567ea70d9c110b94951c8b0dd0980d34d8f))
+
 ## [1.3.0](https://github.com/lmgsaenz/aws-vpc-terraform/compare/v1.2.0...v1.3.0) (2024-05-06)
 
 

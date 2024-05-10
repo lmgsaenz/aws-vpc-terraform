@@ -24,21 +24,21 @@ output "public_subnet_arns" {
   description = "A list of ARNs of public subnets"
   value       = module.vpc.public_subnet_arns
 }
-output "public_route_table_id" {
-  description = "The ID of the Public Route Table"
-  value       = module.vpc.public_route_table_id
+output "public_route_table_ids" {
+  description = "List of IDs of the Public Route Table"
+  value       = module.vpc.public_route_table_ids
 }
-output "public_route_table_arn" {
-  description = "The ARN of the Public Route Table"
-  value       = module.vpc.public_route_table_arn
+output "public_route_table_arns" {
+  description = "List of ARNs of the Public Route Table"
+  value       = module.vpc.public_route_table_arns
 }
-output "public_route_table_association_id" {
+output "public_route_table_association_ids" {
   description = "List of ID of the Public Route Table Association"
-  value       = module.vpc.public_route_table_association_id
+  value       = module.vpc.public_route_table_association_ids
 }
-output "public_internet_gateway_route_id" {
-  description = "The ID of the Public Internet Gateway Rout"
-  value       = module.vpc.public_internet_gateway_route_id
+output "public_internet_gateway_route_ids" {
+  description = "List of IDs of the Public Internet Gateway Rout"
+  value       = module.vpc.public_internet_gateway_route_ids
 }
 output "public_network_acl_id" {
   description = "The ID of the Public Network ACL"

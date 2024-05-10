@@ -83,6 +83,7 @@ No modules.
 | <a name="input_public_inbound_network_acl_rule"></a> [public\_inbound\_network\_acl\_rule](#input\_public\_inbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
 | <a name="input_public_network_acl_tags"></a> [public\_network\_acl\_tags](#input\_public\_network\_acl\_tags) | Additional tags for the Public Network ACL | `map(string)` | `{}` | no |
 | <a name="input_public_outbound_network_acl_rule"></a> [public\_outbound\_network\_acl\_rule](#input\_public\_outbound\_network\_acl\_rule) | value | `map(string)` | <pre>{<br>  "cidr_block": "0.0.0.0/0",<br>  "from_port": 0,<br>  "protocol": "-1",<br>  "rule_action": "allow",<br>  "rule_number": "100",<br>  "to_port": 0<br>}</pre> | no |
+| <a name="input_public_route_table_per_az"></a> [public\_route\_table\_per\_az](#input\_public\_route\_table\_per\_az) | Should be true if you want to create a public route table per AZs. Requires `var.azs`variable and the number of `public subnet` need to be greater than or equal to the number of AZs | `bool` | `false` | no |
 | <a name="input_public_route_table_tags"></a> [public\_route\_table\_tags](#input\_public\_route\_table\_tags) | Additional tags for the Public Route Table | `map(string)` | `{}` | no |
 | <a name="input_public_subnet_names"></a> [public\_subnet\_names](#input\_public\_subnet\_names) | Explicit subnet names to use in the Name tag on public subnets. If empty, Name tags are generated automatically | `list(string)` | `[]` | no |
 | <a name="input_public_subnet_suffix"></a> [public\_subnet\_suffix](#input\_public\_subnet\_suffix) | Suffix to append to public subnets names | `string` | `"public"` | no |
@@ -113,13 +114,13 @@ No modules.
 | <a name="output_private_subnet_arns"></a> [private\_subnet\_arns](#output\_private\_subnet\_arns) | A list of ARNs of private subnets |
 | <a name="output_private_subnet_ids"></a> [private\_subnet\_ids](#output\_private\_subnet\_ids) | A list of IDs of private subnets |
 | <a name="output_public_inbound_network_acl_rule_id"></a> [public\_inbound\_network\_acl\_rule\_id](#output\_public\_inbound\_network\_acl\_rule\_id) | The ID of the Public Inbound Network ACL Rule |
-| <a name="output_public_internet_gateway_route_id"></a> [public\_internet\_gateway\_route\_id](#output\_public\_internet\_gateway\_route\_id) | The ID of the Public Internet Gateway Rout |
+| <a name="output_public_internet_gateway_route_ids"></a> [public\_internet\_gateway\_route\_ids](#output\_public\_internet\_gateway\_route\_ids) | A list of ID of the Public Internet Gateway Rout |
 | <a name="output_public_network_acl_arn"></a> [public\_network\_acl\_arn](#output\_public\_network\_acl\_arn) | The ARN of the Public Network ACL |
 | <a name="output_public_network_acl_id"></a> [public\_network\_acl\_id](#output\_public\_network\_acl\_id) | The ID of the Public Network ACL |
 | <a name="output_public_outbound_network_acl_rule_id"></a> [public\_outbound\_network\_acl\_rule\_id](#output\_public\_outbound\_network\_acl\_rule\_id) | The ID of the Public Outbound Network ACL Rule |
-| <a name="output_public_route_table_arn"></a> [public\_route\_table\_arn](#output\_public\_route\_table\_arn) | The ARN of the Public Route Table |
-| <a name="output_public_route_table_association_id"></a> [public\_route\_table\_association\_id](#output\_public\_route\_table\_association\_id) | List of ID of the Public Route Table Association |
-| <a name="output_public_route_table_id"></a> [public\_route\_table\_id](#output\_public\_route\_table\_id) | The ID of the Public Route Table |
+| <a name="output_public_route_table_arns"></a> [public\_route\_table\_arns](#output\_public\_route\_table\_arns) | A list of ARN of the Public Route Table |
+| <a name="output_public_route_table_association_ids"></a> [public\_route\_table\_association\_ids](#output\_public\_route\_table\_association\_ids) | List of IDs of the Public Route Table Association |
+| <a name="output_public_route_table_ids"></a> [public\_route\_table\_ids](#output\_public\_route\_table\_ids) | A list of ID of the Public Route Table |
 | <a name="output_public_subnet_arns"></a> [public\_subnet\_arns](#output\_public\_subnet\_arns) | A list of ARNs of public subnets |
 | <a name="output_public_subnet_ids"></a> [public\_subnet\_ids](#output\_public\_subnet\_ids) | A list of IDs of public subnets |
 | <a name="output_vpc_arn"></a> [vpc\_arn](#output\_vpc\_arn) | The ARN of the VPC |

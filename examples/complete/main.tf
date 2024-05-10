@@ -15,14 +15,17 @@ locals {
   }
 }
 module "vpc" {
-  source          = "../.."
-  name            = local.name
+  source = "../.."
+
+  name       = local.name
+  cidr_block = local.vpc_cidr
+
   azs             = local.azs
-  cidr_block      = local.vpc_cidr
   public_subnets  = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
   private_subnets = ["10.0.40.0/24", "10.0.50.0/24", "10.0.60.0/24"]
 
   enable_nat_gateway = true
   single_nat_gateway = true
-  tags               = local.tags
+
+  tags = local.tags
 }

@@ -2,9 +2,10 @@ locals {
   len_public_subnets  = length(var.public_subnets)
   len_private_subnets = length(var.private_subnets)
 
-  create_public_subnets  = local.len_public_subnets > 0
-  create_private_subnets = local.len_private_subnets > 0
-  nat_gateway_count      = var.single_nat_gateway ? 1 : var.nat_gateway_per_az ? length(var.azs) : local.len_public_subnets
+  create_public_subnets    = local.len_public_subnets > 0
+  create_private_subnets   = local.len_private_subnets > 0
+  nat_gateway_count        = var.single_nat_gateway ? 1 : var.nat_gateway_per_az ? length(var.azs) : local.len_public_subnets
+  public_route_table_count = var.public_route_table_per_az ? length(var.azs) : 1
 }
 #################################################
 # VPC
@@ -39,22 +40,24 @@ resource "aws_subnet" "public" {
   )
 }
 resource "aws_route_table" "public" {
-  count  = local.create_public_subnets ? 1 : 0
+  count  = local.create_public_subnets && (!var.public_route_table_per_az || local.len_public_subnets >= length(var.azs)) ? local.public_route_table_count : 0
   vpc_id = aws_vpc.this.id
   tags = merge(
-    { "Name" : "${var.name}-${var.public_subnet_suffix}" },
+    {
+      "Name" : format("${var.name}-${var.public_subnet_suffix}-%s", regex("[^/-]+$", element(var.azs, count.index)))
+    },
     var.tags,
     var.public_route_table_tags
   )
 }
 resource "aws_route_table_association" "public" {
   count          = local.create_public_subnets ? local.len_public_subnets : 0
-  route_table_id = aws_route_table.public[0].id
+  route_table_id = element(aws_route_table.public[*].id, count.index)
   subnet_id      = element(aws_subnet.public[*].id, count.index)
 }
 resource "aws_route" "public_internet_gateway" {
-  count                  = local.create_public_subnets && var.create_igw ? 1 : 0
-  route_table_id         = aws_route_table.public[0].id
+  count                  = local.create_public_subnets && var.create_igw ? local.public_route_table_count : 0
+  route_table_id         = element(aws_route_table.public[*].id, count.index)
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.this[0].id
 }

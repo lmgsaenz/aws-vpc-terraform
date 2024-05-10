@@ -62,6 +62,11 @@ variable "public_subnet_suffix" {
   type        = string
   default     = "public"
 }
+variable "public_route_table_per_az" {
+  description = "Should be true if you want to create a public route table per AZs. Requires `var.azs`variable and the number of `public subnet` need to be greater than or equal to the number of AZs"
+  type        = bool
+  default     = false
+}
 variable "public_subnet_tags" {
   description = "Additional tags for the Public Subnets"
   type        = map(string)

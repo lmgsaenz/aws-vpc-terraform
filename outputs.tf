@@ -24,21 +24,21 @@ output "public_subnet_arns" {
   description = "A list of ARNs of public subnets"
   value       = aws_subnet.public[*].arn
 }
-output "public_route_table_id" {
-  description = "The ID of the Public Route Table"
-  value       = aws_route_table.public[0].id
+output "public_route_table_ids" {
+  description = "A list of ID of the Public Route Table"
+  value       = aws_route_table.public[*].id
 }
-output "public_route_table_arn" {
-  description = "The ARN of the Public Route Table"
-  value       = aws_route_table.public[0].arn
+output "public_route_table_arns" {
+  description = "A list of ARN of the Public Route Table"
+  value       = aws_route_table.public[*].arn
 }
-output "public_route_table_association_id" {
-  description = "List of ID of the Public Route Table Association"
+output "public_route_table_association_ids" {
+  description = "List of IDs of the Public Route Table Association"
   value       = aws_route_table_association.public[*].id
 }
-output "public_internet_gateway_route_id" {
-  description = "The ID of the Public Internet Gateway Rout"
-  value       = aws_route.public_internet_gateway[0].id
+output "public_internet_gateway_route_ids" {
+  description = "A list of ID of the Public Internet Gateway Rout"
+  value       = aws_route.public_internet_gateway[*].id
 }
 output "public_network_acl_id" {
   description = "The ID of the Public Network ACL"
